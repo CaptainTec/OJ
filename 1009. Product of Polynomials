@@ -1,0 +1,33 @@
+/**水题 
+分别存储其指数和系数, 也可以用哈希数组，但感觉没必要
+结果由哈希数组来存储 
+*/
+#include <cstdio>
+
+int key1[12], key2[12];//第一行 指数 系数 
+double value1[12], value2[12];
+
+double res_value[2004];
+int main()
+{
+	int k1, k2;
+	scanf("%d",&k1);
+	for(int i=0; i<k1; ++i)
+		scanf("%d %lf", &key1[i], &value1[i]);
+	
+	scanf("%d",&k2);
+	for(int i=0; i<k2; ++i)
+		scanf("%d %lf", &key2[i], &value2[i]);
+	
+	for(int j=0; j<k1; ++j)
+		for(int i=0; i<k2; ++i)
+			res_value[key1[j]+key2[i]] += value1[j]*value2[i];
+
+	int cnt = 0;//统计结果多项式个数 
+	for(int i=2002; i>=0; --i)
+		if(res_value[i]!=0)	cnt++;
+	printf("%d",cnt);
+	for(int i=2002; i>=0; --i)
+		if(res_value[i]!=0)	printf(" %d %.1lf", i, res_value[i]);
+    return 0;
+}
