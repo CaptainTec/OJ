@@ -1,0 +1,41 @@
+package Advanced;
+import java.util.Scanner;
+import java.math.*;
+
+public class A1009ProductOfPoly {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner in = new Scanner(System.in);
+		int k1 = 0, k2 = 0, count = 0;
+		double[] p = new double[1024];
+		double[] ans = new double[2048];
+
+		k1 = in.nextInt();
+		for (int i = 0; i < k1; i++) {
+			int expon = in.nextInt();
+			double coef = in.nextDouble();
+			p[expon] = coef;
+		}
+		k2 = in.nextInt();
+		for (int i = 0; i < k2; i++) {
+			int expon = in.nextInt();
+			double coef = in.nextDouble();
+			for (int j = 0; j<p.length; j++) {
+				if (p[j] != 0)
+					ans[j + expon] += coef * p[j];
+			}
+		}
+
+		for (int i = ans.length - 1; i >=0; i--) {
+			if (ans[i] != 0) {
+				count++;
+			}
+		}
+		System.out.print(count);
+
+		for (int i =ans.length-1; i >=0; i--) {
+			if (Math.abs(ans[i])>=1e-8)
+				System.out.printf(" %d %.1f",i,ans[i]);
+		}
+	}
+}
