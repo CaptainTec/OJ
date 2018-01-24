@@ -1,0 +1,38 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+def proOfPoly():
+	"""
+	python保留两位小数有3种方法
+	如：a = 1.234
+	round(a,2)
+	'%.2f' % a
+	Decimal('5.000').quantize(Decimal('0.00'))
+	"""
+	coe1 = [0]*1001; coe2 = [0]*1001; coe = [0]*2002 	# 三数组均是哈希数组
+	eps = 1.e-8
+
+	p1 = input().strip().split()
+	p2 = input().strip().split()
+	n1 = int(p1[0]); n2 = int(p2[0])
+	for i in range(n1):
+		coe1[int(p1[2*i+1])] = float(p1[2*i+2])		# 将浮点型数据存储到列表中
+	for i in range(n2):
+		coe2[int(p2[2*i+1])] = float(p2[2*i+2])
+	for i in range(1001):
+		for j in range(1001):
+			coe[i+j] += coe1[i]*coe2[j]
+
+	num = 0
+	for i in range(2001):
+		if abs(coe[i]) >= eps:
+			num += 1
+	print(num, end="")
+	i = 2001
+	while i >= 0:
+		i -= 1
+		if abs(coe[i]) >= eps:
+			print(" "+str(i), '%.1f'%coe[i], end="")
+
+if __name__ == "__main__":
+	proOfPoly()
