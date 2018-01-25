@@ -1,0 +1,118 @@
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+using namespace std;
+
+char char2num[128];
+
+int remove_leading_zero(char* str)//先去掉前缀0，并返回字符串长度, 但此题目没有这个坑... 可直接用strlen求其长度 
+{
+    if (str[0] == '\0') return 0;
+    int ri = 0, wi = 0;
+//    while (str[ri] == '0' || str[ri] == '+' || str[ri] == '-') ri++;//去掉前缀0， 带正负号的话也去掉
+    while (str[ri] == '0') ri++;//去掉前缀0
+    int len = 0;
+    while ((str[wi++] = str[ri++]) != '\0') len++;
+    if (len == 0) {
+        str[0] == '0';
+        str[++len] = '\0';
+    }
+    return len;
+}
+
+long long value(char* str, int len, long long radix)//化成十进制并返回 
+{
+    long long ret = 0;
+    long long r = 1;
+    for (int i=len - 1; i>=0; i--) {
+        int digit = char2num[str[i]];
+        // we should check the number validation--检验每一位的有效性 
+        if (digit >= radix) return -1;
+        ret += r * digit;
+        r *= radix;
+    }
+    return ret;
+}
+
+int inc_cmp(char* str, int len, long long radix, long long target)
+{
+    long long v = 0;//保存第二个数转化成10进制之后的数据 
+    long long r = 1;
+    for (int i=len - 1; i>=0; i--)
+	{
+        int digit = char2num[str[i]];
+        v += r * digit;
+        r *=radix;
+        if (v > target)    return 1;//剪枝，如果已经比目标值大了，就没必要再比较了 
+    }
+    if (v == target)    return 0;
+    else    return -1;
+}
+
+long long binary_search(char* str, int len, long long lo, long long hi, long long target)//目标target为10进制 
+{
+    long long mid;
+    while(lo<=hi)
+	{
+        mid = (lo + hi) / 2;
+        int res = inc_cmp(str, len, mid, target);
+        if(res > 0)    hi = mid-1;//说明上面函数里v值过大，需要减小基数 
+        else if(res < 0)    lo = mid+1;//需要增大基数 
+        else    return mid;//返回基数 
+    }
+    return -1;
+}
+
+int main() {
+    // init char2num lookup table
+    for (int i=0; i<10; i++) char2num['0' + i] = i;
+    for (int i='a'; i<='z'; i++) char2num[i] = i - 'a' + 10;
+
+    char num1[16] = {'\0'};
+    char num2[16] = {'\0'};
+    char *pnum1 = num1, *pnum2 = num2;
+    int tag = 0;
+    long long bradix = 0;
+
+    scanf("%s%s%d%ld", num1, num2, &tag, &bradix);
+
+    // we always assure that bradix is the radix of pnum1
+    // and pnum2 is which we should guess its radix
+    if (tag != 1) {
+        pnum1 = num2;
+        pnum2 = num1;
+    }
+//    int n1len = remove_leading_zero(pnum1);
+//    int n2len = remove_leading_zero(pnum2);
+	int n1len = strlen(pnum1);
+    int n2len = strlen(pnum2);
+    
+    long long n1 = value(pnum1, n1len, bradix);
+    bool is_same = !strcmp(pnum1, pnum2);//若两字符串相等 则返回非零---即返回1 
+    
+    if(is_same)//两字符串相等 
+	{
+        if (n1len > 1) {
+            // must be same radix, if digits more than one
+            printf("%d\n", bradix);
+        } else {
+            // only one digit, so choose a smallest valid radix--两字符串均只有1位数组成，则其最大基数为此值加1 
+            printf("%d\n", n1 + 1);
+        }
+        return 0;
+    } 
+
+    long long lo = 0;
+    for (int i=0; i<n2len; i++)//找出另一个数的最小基数，即最大的元素加1 ，进制下界 
+	{
+        int d = char2num[pnum2[i]];
+        if (d + 1> lo) lo = d + 1;
+    }
+
+    long long hi = n1 > lo ? n1 : lo;//hi为n1，lo较大的数。 即进制的上界为数a和数b最大符号代表的数的最大值加上1 
+    int res = binary_search(pnum2, n2len, lo, hi, n1);
+    if (res < 0)    printf("Impossible\n");
+    else    printf("%d", res);
+    return 0;
+}
