@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+
+"""
+# method 1
+def maxNum(a):
+	if a[0]==max(a):
+		return 0
+	elif a[1]==max(a):
+		return 1
+	elif a[2]==max(a):
+		return 2
+
+def main():
+	a=[];b=[];c=[]
+	a = input().strip().split()
+	b = input().strip().split()
+	c = input().strip().split()
+	for i in range(3):
+		a[i] = float(a[i])
+		b[i] = float(b[i])
+		c[i] = float(c[i])
+	res = ['W', 'T', 'L']
+	print(res[maxNum(a)], end=" ")
+	print(res[maxNum(b)], end=" ")
+	print(res[maxNum(c)], end=" ")
+	print("%.2f"%((max(a)*max(b)*max(c)*0.65-1)*2))
+"""
+
+# method 2
+def MaxList(list):
+	d = 0.0
+	max = 0 # maxsize num
+	for i in range(len(list)):
+		if float(list[i]) > d:
+			max = i
+			d = float(list[i])
+	return d, max
+
+
+def main():
+	dict = {0: 'W', 1: 'T', 2: 'L'}
+	total = 1.0
+	for i in range(3):
+		list = input().split()
+		d, max = MaxList(list)
+		print(dict[max], end=" ")
+		total = total * d
+
+	total = (total * 0.65 - 1.0) * 2.0
+	print("%.2f" % total)
+
+if __name__ == "__main__":
+	main()
