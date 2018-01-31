@@ -1,0 +1,85 @@
+/*
+注意：分数相同的话等级也相同，例如 等级可能是 1 1 3 4 5
+注意：不能只用一个等级来统计，例如 分数相同时 不能用上一个总体的等级排名 来 覆盖当前的等级。 可采用一个等级数组 分别统计，然后取最靠前的等级 
+*/
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+using namespace std;
+typedef struct Stu
+{
+	int id, sub[4], rank[4];
+	int best_rank, best_sub_num;
+}Stu;
+Stu num[200002];
+int numID[1000002], flag = 0;
+
+int cmp(Stu a, Stu b)	{	return a.sub[flag]>b.sub[flag];	}
+
+int main()
+{
+	int  n, m;
+	scanf("%d%d",&n, &m);
+	for(int i=0; i<n;++i)
+	{
+		scanf("%d%d%d%d",&num[i].id, &num[i].sub[1], &num[i].sub[2], &num[i].sub[3]);
+		num[i].sub[0] = (num[i].sub[1] + num[i].sub[2] + num[i].sub[3])/3;// + 0.5;//平均值四舍五入, 不四舍五入也能通过所有case 
+//		num[i].best_rank = 99999666;
+	}
+	for(int i=0; i<m; ++i)//读入要测等级的学生ID 
+		scanf("%d",&numID[i]);
+	for(flag=0; flag<=3; ++flag)
+	{
+		sort(num, num+n, cmp);//注意四次排序的顺序，按照同等级下各成绩的优先级
+		num[0].rank[flag] = 1; 
+		for(int i=1; i<n; ++i)
+			if(num[i].sub[flag] == num[i-1].sub[flag])
+				num[i].rank[flag] = num[i-1].rank[flag];
+			else
+				num[i].rank[flag] = i+1;
+	}
+	for(int i=0; i<n; ++i)//找排名最靠前的等级，并且记录其subject编号 
+	{
+		if(num[i].rank[0]<=num[i].rank[1] && num[i].rank[0]<=num[i].rank[2] && num[i].rank[0]<=num[i].rank[3])
+		{
+			num[i].best_rank = num[i].rank[0];
+			num[i].best_sub_num = 0;
+		}
+		else if(num[i].rank[1]<num[i].rank[0] && num[i].rank[1]<=num[i].rank[2] && num[i].rank[1]<=num[i].rank[3])
+		{
+			num[i].best_rank = num[i].rank[1];
+			num[i].best_sub_num = 1;
+		}
+		else if(num[i].rank[2]<num[i].rank[0] && num[i].rank[2]<num[i].rank[1] && num[i].rank[2]<=num[i].rank[3])
+		{
+			num[i].best_rank = num[i].rank[2];
+			num[i].best_sub_num = 2;
+		}
+		else if(num[i].rank[3]<num[i].rank[0] && num[i].rank[3]<num[i].rank[1] && num[i].rank[3]<num[i].rank[2])
+		{
+			num[i].best_rank = num[i].rank[3];
+			num[i].best_sub_num = 3;
+		}
+	}
+	
+	char res[] = { 'A', 'C', 'M', 'E' };
+	int ok = 0, temp;		
+	for(int i=0; i<m; ++i)
+	{
+		ok = 0;
+		for(int j=0; j<n; ++j)
+		{
+			if(numID[i]==num[j].id)
+			{
+				ok = 1; 
+				printf("%d %c\n", num[j].best_rank, res[num[j].best_sub_num]);
+				break;
+			}
+		}
+		if(!ok) printf("N/A\n");
+	} 
+    return 0;
+}
