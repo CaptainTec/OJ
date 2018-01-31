@@ -1,0 +1,56 @@
+/*
+并查集统计去掉被占领的城市之后 连通分支的个数。（亦不能有回路）
+注意：得先去掉被占领的城市 在判断回路 
+*/ 
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+using namespace std;
+typedef struct Edge
+{
+	int a,b;
+}Edge;
+Edge edge[500050];//边最多是 1000*999/2 条 
+int key[1010];
+int uion[1010];//并查集数组 
+
+int find_root(int x)
+{
+	if(uion[x]==-1) return x;
+	else return find_root(uion[x]);
+}
+
+int main()
+{
+	int n, m, k;
+	scanf("%d%d%d", &n, &m, &k);
+	for(int i=0; i<m; ++i)
+		scanf("%d%d", &edge[i].a, &edge[i].b);
+	for(int i=0; i<k; ++i)
+		scanf("%d", &key[i]);
+	int edge_a, edge_b, cnt = 0;
+	for(int t=0; t<k; ++t)
+	{
+		for(int i=1; i<=n; ++i)	uion[i] = -1;//并查集数组 初始化 
+		for(int i=0; i<m; ++i)//准备构建并查集 
+		{
+			if(edge[i].a!=key[t] && edge[i].b!=key[t])//先过滤掉 链接被占领的城市的节点 
+			{
+				edge_a = find_root(edge[i].a);
+				edge_b = find_root(edge[i].b);
+				if(edge_a != edge_b)//不构成回路，则加边 
+					uion[edge_b] = edge_a;	//讲节点b挂在a下面（不一定跟a直接相连） 
+			}
+		}
+		cnt = 0;
+		for(int i=1; i<=n; ++i)//统计连通分支的个数 
+			if(uion[i]==-1 && i!=key[t])//注意：被占领的节点不应算在内 
+				cnt++;
+		printf("%d\n",cnt-1);
+	}
+	
+    return 0;
+}
