@@ -1,0 +1,50 @@
+//队列应用！！！ 
+#include<cstdio>
+#include<queue>
+#include<algorithm>
+using namespace std;
+typedef long long LL;
+const int INF = 0x7FFFFFFF;
+const int maxn = 1e3 + 10;
+int T, a, b, n, q, t[maxn];//t[i]保存第i队列的(总)时间 ，这个时间随加入人数的增加而增加 
+queue<int> p[maxn];//p[i]表示第i个窗口的排队队列 
+
+struct point
+{
+	int x, y;
+	point(int x = 0, int y = 0) :x(x), y(y){}
+}f[maxn];//f[] 存储最后被服务完的时间 
+
+int main()
+{
+	int x;//暂存，类似于temp 
+	scanf("%d%d%d%d", &a, &b, &n, &q);//窗口个数a、每个窗口的容量b、顾客数量n、顾客查询请求的个数q 
+	for (int i = 1; i <= n; i++)
+	{
+		scanf("%d", &x);//读入第i个客户需要占用窗口的时间 
+		int minx = 1;
+		for (int j = 1; j <= a; j++)
+		{
+			if (i <= a*b)
+			{
+				if (p[j].size() < p[minx].size())
+					minx = j;
+			}
+			else if (p[j].front() < p[minx].front())//如果等待区的顾客满了的话，则找一个最先被服务完的队列！！！ 
+				minx = j;
+		}//此for循环语句执行完后，minx是此编号i的顾客即将要排队的队列编号 
+		t[minx] += x;//此时t[minx]里存储的是 编号为i的顾客从8点开始上班到被服务完一共的时间 
+		p[minx].push(t[minx]); //编号i的顾客 从8点开始上班到被服务完一共的时间  进队尾 
+		if (i > a*b) p[minx].pop();//若队列人数超过窗口容量，则队头出队 
+		if (t[minx] - x < 540)//如果 编号为i的顾客能在 17:00（下班）前开始服务的话（17:00之前，不含17:00），则记录被开始服务的时间 
+			f[i] = point(8 + t[minx] / 60, t[minx] % 60);
+		else f[i] = point(18, 0);//不能被服务的全将被服务完毕的时间设置成 18:00， 亲测最晚被服务完的顾客的时间小于18:00 
+	}
+	while (q--)
+	{
+		scanf("%d", &x);
+		if (f[x].x < 18) printf("%02d:%02d\n", f[x].x, f[x].y);
+		else printf("Sorry\n");
+	}
+	return 0;
+}
