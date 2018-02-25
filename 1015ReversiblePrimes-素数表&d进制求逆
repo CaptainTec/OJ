@@ -1,0 +1,51 @@
+#include <cstdio>
+int prime[100010];
+void getPrime()//构建素数表 
+{
+	int ok = 0;
+	prime[2] = 1;
+	for(int i=2; i<100010; ++i)
+	{
+		ok = 0;
+		for(int j=2; j*j<=i; ++j)
+		{
+			if(i%j==0)
+			{
+				ok = 1;
+				break;
+			}
+		}
+		if(!ok) prime[i] = 1;
+	}
+} 
+
+int main()
+{
+	getPrime();//先构建素数表 
+	int n, d;
+	while(scanf("%d", &n) && n>=0)
+	{
+		scanf("%d", &d);
+		int ok = 1;
+		if(!prime[n])//若n不是素数
+			ok = 0;
+		int stack[25], top = -1, reverse = 0; //reverse里保存n基于d的逆 
+		if(ok)//若n是素数的话，再判断 n基于d的逆是不是素数 
+		{
+			while(n)
+			{
+				stack[++top] = n%d;
+				n /= d;
+			}
+			reverse += stack[0];
+			for(int i=1; i<=top; ++i)
+			{
+				reverse = reverse*d + stack[i];
+			} 
+		}
+		if(!prime[reverse])//若reverse不是素数 
+			ok = 0; 
+		ok ? printf("Yes\n") : printf("No\n"); 
+	}
+    return 0;
+}
