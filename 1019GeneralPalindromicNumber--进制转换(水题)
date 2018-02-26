@@ -1,0 +1,36 @@
+#include <cstdio>
+
+int main()
+{
+	long long n, b;
+	int res[1000];
+	int top = -1;
+	scanf("%lld%lld", &n, &b);
+//	if(n==0) res[++top] = '0';//若n为0，则res[0]赋值'0'
+//	 
+//	if(n==b)//若n和b相等需要单独处理
+//	{
+//		printf("Yes\n1\n");
+//		return 0;
+//	}
+	
+	while(n)
+	{
+		res[++top] = n%b;
+		n /= b;
+	}
+	int ok = 1;
+	for(int i=0; i<(top+1)/2; ++i)
+	{
+		if(res[i]!=res[top-i])
+		{
+			ok = 0;
+			break;
+		}
+	}
+	ok ? printf("Yes\n") : printf("No\n");
+	for(int i=top; i>0; --i)//题目是不是有问题 
+		printf("%d ", res[i]);
+	printf("%d", res[0]);
+    return 0;
+}
