@@ -1,0 +1,44 @@
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+	char arr[20];
+	scanf("%s", arr);
+	int len = strlen(arr);
+	int begin[20], end[20], mid[20];
+	for(int i=0; i<len; ++i)
+		begin[i] = arr[i]-48;
+	int add = 0;
+	for(int i=len-1; i>=0; --i)
+	{
+		end[i] = begin[i]*2 +add;
+		if(end[i]>9)
+		{
+			add = 1;
+			end[i] -= 10;
+		}
+		else add = 0;
+		mid[i] = end[i];
+	}
+	int ok = 1;
+	if(add)	ok = 0;
+	else
+	{
+		sort(begin, begin+len);
+		sort(end, end+len);
+		for(int i=0; i<len; ++i)
+			if(begin[i]!=end[i])
+			{
+				ok = 0;
+				break;
+			}
+	}
+	ok ? printf("Yes\n") : printf("No\n");
+	if(add) printf("1");
+	for(int i=0; i<len; ++i)
+		printf("%d", mid[i]);
+    return 0;
+}
