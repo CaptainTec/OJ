@@ -1,0 +1,57 @@
+package Advanced;
+
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class A1136ADelayedPalindrome {
+	public static void main(String[] args)
+	{
+		Scanner scn = new Scanner(System.in);
+		String str = scn.next();
+		
+//		String temp, reverse;//Using StringBuffer rather than String
+		for(int k=0; k<10; ++k)
+		{
+//			int ok = 1;//注释的做法会超内存，因为String比StringBuffer内存开销大
+//			for(int i=0; i<=str.length()/2; ++i)
+//			{
+//				if(str.charAt(i)!=str.charAt(str.length()-1-i))
+//				{
+//					ok = 0;
+//					break;
+//				}
+//			}
+//			if(ok==1)
+//			{
+//				System.out.println(str + " is a palindromic number.");
+//				return;
+//			}
+			
+			StringBuffer ss = new StringBuffer(str);
+			if(str.equals(ss.reverse().toString()))
+			{
+				System.out.println(str + " is a palindromic number.");
+				return;
+			}
+			BigInteger a = new BigInteger(str);
+			BigInteger b = new BigInteger(ss.toString());
+			BigInteger c = a.add(b);//大整数相加
+			System.out.println(a + " + " + b + " = " + c);
+			str = c.toString();
+			
+//			int add = 0, mid;
+//			temp = reverse = "";
+//			for(int i=0, j=str.length()-1; i<str.length(); ++i, --j)
+//			{
+//				reverse += str.charAt(j);
+//				mid = (int)str.charAt(i)-48 + (int)str.charAt(j)-48 + add;
+//				add = mid/10;
+//				temp = (char)(mid%10+48) + temp;
+//			}
+//			if(add==1) temp = "1"+temp;
+//			System.out.println(str + " + " + reverse + " = " + temp);
+//			str = temp;
+		}
+		System.out.println("Not found in 10 iterations.");
+	}
+}
