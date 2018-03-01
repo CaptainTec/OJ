@@ -1,0 +1,38 @@
+package Advanced;
+
+import java.util.Scanner;
+import java.math.BigInteger;
+public class A1136_2 {
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner in = new Scanner(System.in);
+        BigInteger a = in.nextBigInteger();
+        String s = a.toString();
+        StringBuffer s1 = new StringBuffer(s);
+        if(s.equals(s1.reverse().toString())) {
+            System.out.println(s + " is a palindromic number.");
+            return ;
+        }
+        int i;
+        for(i = 0;i < 10;++i)
+        {
+            String s2 = a.toString();
+            StringBuffer s3 = new StringBuffer(s2);
+            BigInteger b = new BigInteger(s3.reverse().toString());
+            //System.out.println(b.toString());
+            BigInteger c = new BigInteger("0");
+            c = a.add(b);
+            System.out.println(s2 + " + " + b.toString() + " = " + c.toString());
+            StringBuffer m = new StringBuffer(c.toString());
+            if(c.toString().equals(m.reverse().toString())) {
+                System.out.println(c.toString() + " is a palindromic number.");
+                break;
+            }
+            a = c;
+        }
+        if(i == 10) {
+            System.out.println("Not found in 10 iterations.");
+        }
+    }
+
+}
