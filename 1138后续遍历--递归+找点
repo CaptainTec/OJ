@@ -1,0 +1,61 @@
+//注意后续遍历第一个节点的找法！！！
+#include <cstdio>
+#include <cstdlib>//malloc
+int preorder[50005], inorder[50005];
+typedef struct Node
+{
+	int data;
+	struct Node* lchild;
+	struct Node* rchild;
+}Node;
+
+Node* createBTree(int preSta, int preEnd, int midSta, int midEnd)
+{
+	int temp = preorder[preSta], key;
+	Node* p = (Node*)malloc(sizeof(Node));
+	p->lchild = p->rchild = NULL;
+	p->data = temp;
+	for(int i=midSta; i<=midEnd; ++i)
+	{
+		if(inorder[i]==temp)
+		{
+			key = i;
+			break;
+		}
+	}
+	if(key>midSta) p->lchild = createBTree(preSta+1, preSta+key-midSta, midSta, key-1);
+	if(key<midEnd) p->rchild = createBTree(preSta+key-midSta+1, preEnd, key+1, midEnd);
+	return p;
+}
+
+void postOrder(Node* head)//后续遍历 
+{
+	if(head!=NULL)
+	{
+		postOrder(head->lchild);
+		postOrder(head->rchild);
+		printf("%d ", head->data);
+	}
+}
+
+int main()
+{
+	int n, first;
+	scanf("%d", &n);
+	for(int i=0; i<n; ++i)
+		scanf("%d", &preorder[i]);
+	for(int i=0; i<n; ++i)
+		scanf("%d", &inorder[i]);
+	Node* head = createBTree(0, n-1, 0, n-1);
+	Node* s = head;
+	while(s->lchild!=NULL || s->rchild!=NULL)//找第一个遍历的节点，不满足此条件即找到了！！！ 
+	{
+		while(s->lchild!=NULL)
+		{
+			s = s->lchild;
+		}
+		if(s->rchild!=NULL)	s = s->rchild;
+	}
+	printf("%d", s->data);
+    return 0;
+}
