@@ -1,0 +1,66 @@
+#include <iostream>
+#include <cstdio>
+#include <string>
+#include <algorithm>
+#include <map>//map匹配用的是哈希，暴力匹配会超时！！！
+#include <vector>
+using namespace std;
+typedef struct Stu
+{
+	string id;
+	int online, mid, final, G;
+}Stu;
+Stu stu[10010];
+int cmp(Stu a, Stu b)
+{
+	return a.G!=b.G ? a.G>b.G : a.id<b.id;
+}
+map<string, int> idMatch;
+int main()
+{
+	for(int k=0; k<10010; ++k)//注意：可能有的人参加的mid考试，并且考了0分。若不初始化为-1的话，没参加mid考试的人的得分也是0分 
+		stu[k].mid = -1;
+	int p, m, n;
+	scanf("%d%d%d", &p, &m, &n);
+	string str;
+	int temp, cnt = 1;//下标从1开始 
+	for(int i=0; i<p; ++i)
+	{
+		cin>>str>>temp;
+		if(temp>=200)
+		{
+			stu[cnt].id = str;
+			stu[cnt].online = temp;
+			idMatch[str] = cnt++;
+		}
+	}
+	for(int i=0; i<m; ++i)
+	{
+		cin>>str>>temp;
+		int key = idMatch[str];
+		if(key!=0)//如果匹配不到会返回0. 所以cnt得从1开始 
+			stu[key].mid = temp; 
+	}
+	for(int i=0; i<n; ++i)
+	{
+		cin>>str>>temp;
+		int key = idMatch[str];
+		if(key!=0)//如果匹配不到会返回0. 所以cnt得从1开始 
+		{
+			stu[key].final = temp; 
+			if(stu[key].mid<=stu[key].final)	stu[key].G = stu[key].final;//在这里处理G的值，简洁！！！ 
+			else	stu[key].G = stu[key].mid*0.4 + stu[key].final*0.6 + 0.5;
+		} 
+	}
+	sort(stu+1, stu+cnt, cmp);//下标从1开始
+	for(int i=1; i<cnt; ++i)//下标从1开始
+	{
+		if(stu[i].G>=60)
+		{//str.c_str()是将cpp里面的string类转化成字符数组的形式
+			if(stu[i].mid==-1)	printf("%s %d -1 %d %d\n", stu[i].id.c_str(), stu[i].online, stu[i].final, stu[i].G);
+			else printf("%s %d %d %d %d\n", stu[i].id.c_str(), stu[i].online, stu[i].mid, stu[i].final, stu[i].G);
+		}
+		else break;
+	}
+    return 0;
+}
