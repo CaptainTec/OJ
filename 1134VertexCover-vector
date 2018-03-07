@@ -1,0 +1,51 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+using namespace std;
+vector<int> res[10005];
+int set[10005];//存储边的编号！！！ 
+int main()
+{
+	int n, m, a, b;
+	scanf("%d%d", &n, &m);
+	for(int i=0, cnt=0; i<m; ++i)
+	{
+		scanf("%d%d", &a, &b);
+		res[a].push_back(cnt);
+		res[b].push_back(cnt);
+		++cnt;
+	}
+	int temp;
+	scanf("%d", &a);
+	while(a--)
+	{
+//		memset(set, sizeof(set), 0);
+		for(int i=0; i<m; ++i)	set[i] = 0;
+		scanf("%d", &b);
+		for(int i=0; i<b; ++i)
+		{
+			scanf("%d", &temp);
+			vector<int>::iterator it;
+			for (it = res[temp].begin(); it != res[temp].end(); it++)
+			{
+				set[*it] = 1;
+			}
+		}
+		
+		int ok = 1;
+		for(int i=0; i<m; ++i)
+		{
+			if(!set[i])
+			{
+				ok = 0;
+				break;
+			}
+		}
+		if(ok)	printf("Yes\n");
+		else printf("No\n");
+	}
+    return 0;
+}
