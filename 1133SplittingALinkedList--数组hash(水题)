@@ -1,0 +1,66 @@
+#include <cstdio>
+typedef struct Node
+{
+	int data, next;
+}Node;
+Node node[100010];//hash数组 
+
+int main()
+{
+	int first, n, k;
+	scanf("%d%d%d",&first,&n,&k);
+	int a,b,c;
+	for(int i=0;i<n;++i)
+	{
+		scanf("%d%d%d",&a,&b,&c);
+		node[a].data = b;
+		node[a].next = c;
+	}
+	
+	int pnt = first, ok = 0;
+	while(pnt!=-1)//data小于0 
+	{
+		if(node[pnt].data<0)
+		{
+			if(ok)	printf("%05d\n%05d %d ",pnt,pnt,node[pnt]);
+			else
+			{
+				printf("%05d %d ",pnt,node[pnt]);
+				ok = 1;
+			}
+		}
+		pnt = node[pnt].next;
+	}
+	
+	pnt = first; 
+	while(pnt!=-1)//data小于0 
+	{
+		if(node[pnt].data>=0 && node[pnt].data<=k)//[0,k]之间的元素 
+		{
+			if(ok)	printf("%05d\n%05d %d ",pnt,pnt,node[pnt]);
+			else
+			{
+				printf("%05d %d ",pnt,node[pnt]);
+				ok = 1;
+			}
+		}
+		pnt = node[pnt].next;
+	}
+	
+	pnt = first; 
+	while(pnt!=-1)//data小于0 
+	{
+		if(node[pnt].data>k)//大于k的元素 
+		{
+			if(ok)	printf("%05d\n%05d %d ",pnt,pnt,node[pnt]);
+			else
+			{
+				printf("%05d %d ",pnt,node[pnt]);
+				ok = 1;
+			}
+		}
+		pnt = node[pnt].next;
+	}
+	printf("-1\n"); 
+    return 0;
+}
