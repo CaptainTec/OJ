@@ -1,0 +1,21 @@
+package Basic;
+import java.util.Scanner;
+
+public class B1001 {
+	public static void main(String[] args)
+	{
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+		int cnt = 0;
+		while(n!=1)
+		{
+			if(n%2!=0)
+				n = (3*n+1)/2;
+			else
+				n /= 2;
+			cnt++;
+		}
+		System.out.println(cnt);
+		scn.close();
+	}
+}
