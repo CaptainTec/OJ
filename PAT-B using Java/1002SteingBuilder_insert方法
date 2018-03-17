@@ -1,0 +1,28 @@
+package Basic;
+
+import java.util.Scanner;
+public class B1002 {
+	
+	public static void main(String[] args)
+	{
+		Scanner scanner = new Scanner(System.in);
+		String buf = scanner.next();
+		int sum = 0;
+		for(int i=0; i<buf.length(); ++i)
+		{
+			sum += buf.charAt(i)-'0';
+//			System.out.println(buf.indexOf(i));//查找索引用indexOf
+		}
+		String[] ans = {"ling","yi","er","san","si","wu","liu","qi","ba","jiu"};
+		StringBuilder key = new StringBuilder();
+		while(sum>10)
+		{
+			key.insert(0, ans[sum%10]);
+			key.insert(0, " ");
+			sum /= 10;
+		}
+		key.insert(0, ans[sum]);
+		System.out.println(key);
+		
+	}
+}
