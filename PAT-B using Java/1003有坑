@@ -1,0 +1,40 @@
+package Basic;
+//第二个测试点卡PA这种情况
+import java.util.Scanner;
+public class B1003 {
+	
+	public static void main(String[] args)
+	{
+		Scanner scanner = new Scanner(System.in);
+		int t = scanner.nextInt();
+		scanner.nextLine();
+		for(int k=0; k<t; ++k)
+		{
+			int a = 0, b = 0, c = 0, flag = 0, ok = 1;
+			char mid;
+			String temp = new String(scanner.nextLine());
+			for(int i=0; i<temp.length(); ++i)
+			{
+				mid = temp.charAt(i);
+				if(mid=='A')
+				{
+					if(flag==0)	++a;
+					else if(flag==1) ++b;
+					else ++c;
+				}
+				else if(mid=='P' && flag==0)
+					++flag;
+				else if(mid=='T' && flag==1)
+					++flag;
+				else
+				{
+					ok = 0;
+					break;
+				}
+			}
+			if(ok==1 && b>0 && a*b==c && flag==2)//flag==2 说明PT各只含一个 且 P在T前面
+				System.out.println("YES");
+			else	System.out.println("NO");
+		}
+	}
+}
