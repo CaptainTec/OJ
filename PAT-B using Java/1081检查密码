@@ -1,0 +1,46 @@
+package Basic;
+
+import java.util.Scanner;
+
+public class B1081 {
+	
+	public static void main(String[] args)
+	{
+		Scanner in = new Scanner(System.in);
+		String nn = in.nextLine();
+		int n = Integer.parseInt(nn);
+		for(int i=0; i<n; ++i)
+		{
+			String str = in.nextLine();
+			if(str.length()<6)
+			{
+				System.out.println("Your password is tai duan le.");
+				continue;
+			}
+			else
+			{
+				boolean num = false, word = false, dot = false, addition = false;
+				for(int j=0; j<str.length(); ++j)
+				{
+					char temp = str.charAt(j);
+					if((temp>='a'&&temp<='z') || (temp>='A'&&temp<='Z'))
+						word = true;
+					else if(temp>='0'&&temp<='9')
+						num = true;
+					else if(temp=='.')
+						dot = true;
+					else addition = true;
+				}
+				if(addition == true)
+					System.out.println("Your password is tai luan le.");
+				else if(num==true&&word==false)
+					System.out.println("Your password needs zi mu.");
+				else if(num==false&&word==true)
+					System.out.println("Your password needs shu zi.");
+				else {
+					System.out.println("Your password is wan mei.");
+				}
+			}
+		}
+	}
+}
