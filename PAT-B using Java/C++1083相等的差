@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+using namespace std;
+int ans[10100];
+int main()
+{
+	int t, temp;
+	scanf("%d", &t);
+	for(int i=1; i<=t; ++i)
+	{
+		scanf("%d", &temp);
+		ans[abs(temp-i)]++;
+	}
+	for(int i=t-1; i>=0; --i)
+	{
+		if(ans[i]>1)
+			printf("%d %d\n", i, ans[i]);
+	}
+    return 0;
+}
