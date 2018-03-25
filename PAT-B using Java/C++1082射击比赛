@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+using namespace std;
+typedef struct Stu
+{
+	char name[10];
+	double x,y;
+	double ans;
+}Stu;
+Stu stu[10010];
+
+int cmp(Stu a, Stu b)
+{
+	return a.ans>b.ans;
+}
+
+int main()
+{
+	int t;
+	scanf("%d", &t);
+	for(int i=0; i<t; ++i)
+	{
+		scanf("%s%lf%lf", stu[i].name, &stu[i].x, &stu[i].y);
+		stu[i].ans = sqrt(stu[i].x*stu[i].x + stu[i].y*stu[i].y);
+	}
+	sort(stu, stu+t, cmp);
+//	for(int i=0; i<t; ++i)
+//		printf("%lf ", stu[i].ans);
+	printf("%s %s", stu[t-1].name, stu[0].name);
+    return 0;
+}
