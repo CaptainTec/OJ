@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main()
+{
+//	string a = "aaa";
+//	int b = 123;
+//	a = a + (std::to_string)(b);
+//	cout<<a;
+	
+	int big = 0;
+	string str;
+	int key;
+	cin>>str>>key;
+	if(key==1)
+	{
+		cout<<str<<endl;
+		return 0;
+	}
+	for(int i=0; i<key-1; ++i)
+	{
+		int len = str.length();
+		string temp = "";
+		int cnt = 1;
+		for(int k=1; k<=len;  )
+		{
+			cnt = 1;
+			while(k+cnt<=len && str[k-1+cnt-1]==str[k-1+cnt])
+			{
+				++cnt;
+			}
+			temp = temp + str[k-1] + (to_string)(cnt);//(to_string)(cnt) 讲整数转化成string类的形式 
+//			cout<<temp<<endl;
+			k += cnt;
+		}
+		str = temp;
+	}
+	cout<<str<<endl;
+    return 0;
+}
