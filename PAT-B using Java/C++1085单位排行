@@ -1,0 +1,105 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <algorithm>
+#include <vector>
+#include <map>
+using namespace std;
+typedef struct Stu
+{
+	string school;
+	int score;
+	int cnt;
+	Stu(string s, int sco, int c):school(s),score(sco),cnt(c){}
+}Stu;
+int cmp(Stu a, Stu b)
+{
+	if(a.score == b.score)
+	{
+		if(a.cnt==b.cnt)	return a.school<b.school;
+		else return a.cnt<b.cnt;
+	}
+	else	return a.score>b.score;
+}
+
+void lr(char school[],int len)//转小写 
+{
+    for(int i=0;i<len;++i)
+	{
+        if(isupper(school[i]))
+		{
+            school[i]=tolower(school[i]);
+        }
+    }
+}
+
+int main()
+{
+	map<string, pair<double, int>> ans;
+	pair<double, int> mid;
+	map<string, pair<double, int>>::iterator out;
+//	map<int, int>::iterator in; 
+	int t;
+	scanf("%d", &t);
+	char student[10], school[10];
+//	string student, temp;
+	double num;
+	while(t--)
+	{
+//		cin>>student>>num>>temp;
+		scanf("%s %lf %s",student, &num, school);
+		if(student[0]=='T')	num *= 1.5;
+		else if(student[0]=='B') num /= 1.5;
+//		string school;
+//		transform(temp.begin(), temp.end(), back_inserter(school), ::tolower);//讲temp转成小写字符串
+		lr(school, strlen(school));
+//		if(ans.count(school))//返回1则说明此学校已在ans中 ，否则返回0
+//		{
+//		mid = ans.find(school)->second;
+		mid = ans[school];
+		mid.first += num;
+		mid.second++;
+		ans[school] = mid;//更新school下面的pair 
+//		}
+//		else
+//		{
+//			mid.first = num;
+//			mid.second = 1;
+//			ans[school] = mid;
+//		}
+	}
+	int number = ans.size();
+	printf("%d\n", number);
+	
+	vector<Stu> stu;
+	for(out=ans.begin(); out!=ans.end(); ++out)
+	{
+		mid = out->second;
+		stu.push_back(Stu(out->first, (int)mid.first, mid.second));
+	}
+	sort(stu.begin(), stu.end(), cmp);
+	int pre = 0;
+	printf("1 %s %d %d\n",stu[0].school.c_str(), stu[0].score, stu[0].cnt);
+	for(int i=1; i<number; ++i)
+	{
+		if(stu[i].score==stu[pre].score)	printf("%d ",pre+1);
+		else
+		{
+			pre = i;
+			printf("%d ", i+1);
+		}	
+//		cout<<" "<<stu[i].school<<" "<<stu[i].score<<" "<<stu[i].cnt<<endl;
+		printf("%s %d %d\n",stu[i].school.c_str(), stu[i].score, stu[i].cnt);
+	}
+    return 0;
+}
+/*
+5
+AAA 100 A
+AAA 100 B
+AAA 100 C
+AAA 100 D
+AAA 100 E
+
+*/
