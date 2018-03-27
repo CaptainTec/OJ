@@ -1,0 +1,39 @@
+package Basic;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class B1076
+{
+	public static void main(String[] args)
+	{
+		Scanner in = new Scanner(System.in);
+		ArrayList<Integer> ans = new ArrayList<>();//存放结果
+		int n = in.nextInt();
+		for(int i=0; i<n; ++i)
+		{
+			for(int j=0; j<4; ++j)
+			{
+				String a = new String();
+				a = in.next();
+				if(a.charAt(2)=='T')
+					ans.add(a.charAt(0)-'A'+1);
+			}
+		}
+		for(int i=0; i<ans.size(); ++i)
+			System.out.print(ans.get(i));//访问第i个具体值用get方法，直接输出ans则是列表的形式
+	}
+	
+}
+/*
+8
+A-T B-F C-F D-F
+C-T B-F A-F D-F
+A-F D-F C-F B-T
+B-T A-F C-F D-F
+B-F D-T A-F C-F
+A-T C-F B-F D-F
+D-T B-F C-F A-F
+C-T A-F B-F D-F
+
+*/
