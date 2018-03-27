@@ -1,0 +1,68 @@
+package Basic;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;//sort排序
+
+public class B1077
+{
+	public static void main(String[] args) throws IOException//显示抛出异常
+	{
+		BufferedReader br = new  BufferedReader(new InputStreamReader(System.in));
+		//BufferedReader字符输入缓冲类，从字符输入流中读取文本，缓冲各个字符，从而提供字符、数组和行的高效读取
+		//标准输入流system.in是一个位流，为了转换成字符流，可使用InputStreamReader进行转换
+		//字节流通向字符流的桥梁：它使用指定的 charset 读取字节并将其解码为字符。其字符集可以由名称指定或显式给定，或者可以接受平台默认的字符集。
+		String temp = null;
+		
+		ArrayList<Integer> score = new ArrayList<>();
+		ArrayList<Integer> ans = new ArrayList<>();
+		temp = br.readLine();//获取一整行
+		String[] head = temp.split(" ");//按空格拆分字符串，存储到字符串数组中
+		int n = Integer.parseInt(head[0]);//包装类进行类型转换
+		int full = Integer.parseInt(head[1]);//总分
+		for(int i=0; i<n; ++i)
+		{
+			score.clear();//先清空
+			int cnt = 0;
+//			String str = new String();
+//			str = in.nextLine();
+			temp = br.readLine();
+			String[] scor = temp.split(" ");
+			for(int j=1; j<scor.length; ++j)
+			{
+				int mid = Integer.parseInt(scor[j]);
+				if(mid>=0 && mid<=full)
+				{
+					score.add(mid);
+					cnt++;
+				}
+			}
+			Collections.sort(score);
+//			for(int k=0; k<score.size(); ++k)
+//				System.out.print(score.get(k) + " ");
+//			score.forEach(e->System.out.print(e + " "));
+//			System.out.println();
+			double sum = 0;
+			for(int j=1; j<score.size()-1; ++j)
+			{
+				sum += score.get(j);
+			}
+			int stu = cnt>2 ? (int)(sum/(cnt-2)) : 0;//注意：此题目里学生评分是去尾，总分是四舍五入
+			ans.add((Integer.parseInt(scor[0]) + stu + 1)/2);
+		}
+		for(int i=0; i<ans.size(); ++i)
+			System.out.println(ans.get(i));
+	}
+}
+/*
+6 50
+42 49 49 35 38 41
+36 51 50 28 -1 30
+40 36 41 33 47 49
+30 250 -25 27 45 31
+48 0 0 50 50 1234
+43 41 36 29 42 29
+
+*/
