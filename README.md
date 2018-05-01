@@ -1,4 +1,7 @@
 # PAT-A
+|题目|类别|题解(cpp&&java)|
+|:----:|:----:|:----:|
+|1068Find More Coins|01背包 或 dfs|[cpp](https://blog.csdn.net/m0_38024592/article/details/80084851)|
 
 1007最大子串和----Kadane算法
 
@@ -19,3 +22,4 @@
 1016电话账单------结构体排序+vector
 
 1076微博转发------BFS+vector+queue
+
