@@ -1,7 +1,7 @@
 # PAT-A
 |题目|类别|题解(cpp&&java)|
 |:----:|:----:|:----:|
-|1068Find More Coins|01背包 或 dfs|[cpp](https://blog.csdn.net/m0_38024592/article/details/80161262)|
+|[1068Find More Coins](https://www.patest.cn/contests/pat-a-practise/1068)|01背包 或 dfs|[cpp](https://blog.csdn.net/m0_38024592/article/details/80161262)|
 |[POJ1611TheSuspects](http://poj.org/problem?id=1611)|并查集|[cpp](https://blog.csdn.net/tiantangrenjian/article/details/7084609)|
 
 
