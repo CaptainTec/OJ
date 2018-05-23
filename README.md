@@ -33,4 +33,4 @@
 
 |Title|类别|C/C++|Java|Python|
 |:----:|:----:|:----:|:----:|:----:|
-|二维数组的查找|类似于二叉树搜索|查看题解|查看题解|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80418429)|
+|二维数组的查找|类似于二叉树搜索|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80418429)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80418429)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80418429)|
