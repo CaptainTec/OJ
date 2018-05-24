@@ -35,3 +35,4 @@
 |:----:|:----:|:----:|:----:|:----:|
 |二维数组的查找|类似于二叉树搜索|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80418429)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80418429)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80418429)|
 |替换空格|字符串|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80424612)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80424612)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80424612)|
+|从尾到头打印链表|数组逆序|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80437606)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80437606)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80437606)|
