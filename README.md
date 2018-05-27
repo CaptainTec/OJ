@@ -38,3 +38,4 @@
 |从尾到头打印链表|数组逆序|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80437606)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80437606)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80437606)|
 |重建二叉树|前中求后续-递归|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80450378)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80450378)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80450378)|
 |用两个栈实现队列|倒腾元素|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80461867)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80461867)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80461867)|
+|旋转数组的最小数字|二分查找变体|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80474427)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80474427)|[查看题解](https://blog.csdn.net/m0_38024592/article/details/80474427)|
